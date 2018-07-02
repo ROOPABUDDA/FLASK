@@ -1,0 +1,25 @@
+<form action="{{ url_for('create_table') }}" method="post">
+    Name:<input type="text" name="table_name" id="table_name" />
+    Column Number:<input type="text" name="number_of_columns" id="number_of_columns" />
+    <input type="button" id="generate_field_btn" value="Generate Field" />
+    <div id="dynamic_field">
+
+    </div>
+    <input type="submit" name="Create Table">
+</form>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#generate_field_btn").on("click",function(){
+            $number_of_columns = $("#number_of_columns").val();
+            $number_of_columns = parseInt($number_of_columns);
+            for($i=0; $i<$number_of_columns; $i++){
+                $field_name = "Field "+($i+1)+": ";
+                $new_element = $field_name+'<input type="text" name="fields[]"/><br/>';
+                $("#dynamic_field").append($new_element);
+            }
+
+        })
+    })
+</script>
