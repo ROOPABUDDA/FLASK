@@ -19,9 +19,13 @@ if __name__ == '__main__':
 import os
 from flask import Flask, request, redirect, url_for,send_from_directory
 from werkzeug.utils import secure_filename
+import pandas as pd
+
+dfs = pd.read_excel('uploads/*.xlsx')
+print(dfs)
 
 UPLOAD_FOLDER = '/home/roopa/others/RVS/internals/FLASK/usingPandas/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv','xlsx','xls'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -47,6 +51,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            print("store to database")
             return "File uploaded successfully"
             #redirect(url_for('uploaded_file',                                    filename=filename))
     return '''
